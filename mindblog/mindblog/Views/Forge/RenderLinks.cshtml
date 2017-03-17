@@ -1,0 +1,31 @@
+﻿@model IEnumerable<mindblog.Models.WikiPage>
+ 
+@foreach (var atom in Model)
+{
+    if (!String.IsNullOrEmpty(atom.Title))
+    {
+        <div class="col-xs-3 col-sm-3 col-md-2" style="margin-bottom:5px;">
+            <a href="/Forge/Details/@atom.Id">
+                <div class="thumbnail" draggable="true" ondragstart="dragLink(event)" data-atomId="@atom.Id"
+                     @if (!String.IsNullOrEmpty(atom.ParentAtomId)) { <text> data-oldParentId="@atom.ParentAtomId" </text>      }>
+
+                    <div class="caption text-center">
+                        @if(atom.HasThumbnail())
+                        { 
+                        <img src="/Forge/GetThumbnail?id=@atom.Id">
+                        }
+                        else
+                        {
+                        @*<span class="glyphicon glyphicon-tint" style="font-size: 48px;" aria-hidden="true"></span>*@
+                        <img src="@Url.Content("~/Content/images/folder.png")" />
+                        }
+                        <br /><br />
+                        <span>@atom.Title</span>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+}
+ 

@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Web
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eiddata", "eiddata\eiddata.csproj", "{5BEDEF97-64C9-4E5F-9046-B8CF9079274E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eiddatatests", "eiddatatests\eiddatatests.csproj", "{01DB9751-A6BA-4041-AFFA-589A2ED049AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eiddataentityframework", "eiddataentityframework\eiddataentityframework.csproj", "{08B3C9AA-921B-49D7-89ED-2B71AFDBD006}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BEDEF97-64C9-4E5F-9046-B8CF9079274E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BEDEF97-64C9-4E5F-9046-B8CF9079274E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BEDEF97-64C9-4E5F-9046-B8CF9079274E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BEDEF97-64C9-4E5F-9046-B8CF9079274E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01DB9751-A6BA-4041-AFFA-589A2ED049AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01DB9751-A6BA-4041-AFFA-589A2ED049AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01DB9751-A6BA-4041-AFFA-589A2ED049AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01DB9751-A6BA-4041-AFFA-589A2ED049AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08B3C9AA-921B-49D7-89ED-2B71AFDBD006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08B3C9AA-921B-49D7-89ED-2B71AFDBD006}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08B3C9AA-921B-49D7-89ED-2B71AFDBD006}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08B3C9AA-921B-49D7-89ED-2B71AFDBD006}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

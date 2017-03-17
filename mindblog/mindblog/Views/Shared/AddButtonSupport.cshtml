@@ -1,0 +1,79 @@
+﻿ <script src="@Url.Content("~/Scripts/dropzone/dropzone.js")"></script>
+ 
+ 
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">&nbsp;</h4>
+            </div>
+            <div class="modal-body">
+ 
+                <div class="btn-group btn-group-justified" role="group">
+
+                    @if (!String.IsNullOrEmpty(ViewBag.Id))
+                    {
+     
+                    <a class="btn" role="button" href="@Url.Action("Edit", new { id = ViewBag.Id })">
+                        <div class="thumbnail">
+                            <span class="glyphicon glyphicon-file caption text-center" style="font-size: xx-large;" aria-hidden="true"></span>
+                            <div class="caption text-center">
+                                <span class="text-center">Edit</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <div class="btn" role="button" data-uploadattachment="true">
+                        <div class="thumbnail" data-uploadattachment="true">
+                            <span class="glyphicon glyphicon-picture caption text-center" style="font-size: xx-large;" aria-hidden="true" data-uploadattachment="true"></span>
+                            <div class="caption" data-uploadattachment="true">
+                                Add File
+                            </div>
+                        </div>
+                    </div>
+
+                  
+                    <a class="btn" role="button" href="@Url.Action("Create", new { parentId = ViewBag.Id })">
+                        <div class="thumbnail">
+                            <span class="glyphicon glyphicon-file caption text-center" style="font-size: xx-large;" aria-hidden="true"></span>
+                            <div class="caption text-center">
+                                <span class="text-center">Add Page</span>
+                            </div>
+                        </div>
+                    </a>
+                    }
+                    
+                    <a class="btn" role="button" href="@Url.Action("CreateNote")">
+                        <div class="thumbnail">
+                            <span class="glyphicon glyphicon-comment caption text-center" style="font-size: xx-large;" aria-hidden="true"></span>
+                            <div class="caption text-center">
+                                <span class="text-center">Note</span>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+ 
+            </div>
+           
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+ 
+
+<script>
+ 
+    $('[data-uploadattachment=true]').dropzone({
+    url: '@Url.Content("~/Forge/UploadAttachmentAsNewPage")/@ViewBag.Id',
+    init: function () {
+        this.on("complete", function (file) {
+            location.reload();
+        });
+    }
+});
+ 
+</script>
+ 

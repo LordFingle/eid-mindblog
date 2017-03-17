@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mindblog</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="@Url.Content("~/Scripts/context.js")"></script>
+</head>
+<body>
+
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+
+@if (Request.IsAuthenticated)
+{
+        <div class="container">
+           <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+               @* @Html.ActionLink("Home", "Index", "Forge", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-left navbar-nav">
+                    
+                    <li><a data-toggle="modal" href="#" data-action="showgo"><img class="hidden-xs" src="@Url.Content("~/Content/toolbarimages/go.png")" /><span class="hidden-lg hidden-md hidden-sm">Go</span></a></li>
+                    <li><a href="@Url.Action("Details", new { id = "Notebook" })"><img class="hidden-xs" src="@Url.Content("~/Content/toolbarimages/journal.png")" /><span class="hidden-lg hidden-md hidden-sm">Journal</span></a></li>
+                    <li data-inventory="true"><a href="@Url.Action("Details", new { id = "Inventory" })"><img class="hidden-xs" src="@Url.Content("~/Content/toolbarimages/inventory.png")" /><span class="hidden-lg hidden-md hidden-sm">Inventory</span></a></li>
+                  
+
+                    @*<li><a href="@Url.Action("CreateNote")">Go</a></li>
+                    <li><a href="@Url.Action("CreateNote")">Notebook</a></li>
+                    <li><a href="#" data-showwindow="true" data-windowtitle="Inventory" data-url="@Url.Action("Details", new { id = "Inventory", minimal = true })">Inventory</a></li>*@
+  
+                </ul>
+                <ul class="nav navbar-right navbar-nav">
+                    <li data-trash="true"><a href="@Url.Action("Details", new { id = "Trash" })"><img class="hidden-xs" src="@Url.Content("~/Content/toolbarimages/trash.png")" /><span class="hidden-lg hidden-md hidden-sm">Trash</span></a></li>
+                    <li data-uploadattachment="true"><a data-toggle="modal" href="#" data-target="#addModal"><img class="hidden-xs" src="@Url.Content("~/Content/toolbarimages/action.png")" /><span class="hidden-lg hidden-md hidden-sm">Action</span></a></li>
+
+                    @*<li><a href="#" data-showwindow="true" data-windowtitle="Trash" data-url="@Url.Action("Details", new { id = "Trash", minimal = true })">Trash</a></li>
+            <li><a href="@Url.Action("CreateNote")">Action</a></li>*@
+                </ul>
+            </div>
+        </div>
+}
+    </div>
+    
+    
+    <div class="container body-content">
+        <div class="hidden-xs">
+             
+            <br />
+            <br />
+            <br />
+        </div>
+
+        @RenderBody()
+        
+     
+        <footer>
+          
+        </footer>
+    </div>
+ 
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+   
+    @Html.Partial("_Geospatial")    
+    @Html.Partial("AddButtonSupport")
+    @Html.Partial("GoButtonSupport")
+
+</body>
+</html>

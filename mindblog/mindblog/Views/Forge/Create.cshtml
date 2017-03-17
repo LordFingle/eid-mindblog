@@ -1,0 +1,32 @@
+﻿ 
+
+@{
+    ViewBag.Title = "Create";
+}
+
+ 
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    
+        <h4>Create Place</h4>
+     
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+        <p>
+           <label for="name">Name : </label> <input type="text" id="name" name="name" value="" />
+        </p>
+
+        <input type="hidden" name="parentid" value="@ViewBag.ParentId" />  
+             
+        <input type="submit" value="Create" class="btn btn-default" />
+     
+    
+}
+ 
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

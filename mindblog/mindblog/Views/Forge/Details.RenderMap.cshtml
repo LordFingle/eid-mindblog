@@ -1,0 +1,104 @@
+﻿@model mindblog.Models.WikiPage
+@using mindblog.Models
+
+<script src="@Url.Content("~/Scripts/vis/vis.min.js")" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/vis/vis.min.css")" /> 
+ 
+<style type="text/css">
+    #mynetwork {
+        height: 90vh;
+
+    }
+</style>
+<div id="mynetwork"></div>
+ 
+<script type="text/javascript">
+
+
+    // create an array with nodes
+    @{
+
+
+        var allTheNodes = new List<MapDisplayNode>();
+        allTheNodes.AddRange(Model.GetMapDisplayNodes());
+
+
+    }
+
+    var nodes = [
+
+
+   @for (var i = 0; i < allTheNodes.Count; i++)
+    {
+        var link = allTheNodes[i];
+
+       <text> { id: '@link.Id', label: '@link.Title', shape: '@link.Shape'</text>
+        if (!String.IsNullOrEmpty(link.ImageUrl))
+        {
+             <text>, image: '@link.ImageUrl?id=' + '@link.AttachmentId' + '&key=' + '@link.AttachmentKey'</text>
+        }
+       <text> }</text>
+
+        if (i < (allTheNodes.Count - 1))
+       {
+           <text>, </text>
+       }
+    }
+
+
+    ];
+
+    // create an array with edges
+    var edges = [
+
+ @for (var i = 0; i < allTheNodes.Count; i++)
+    {
+        var link = allTheNodes[i];
+
+
+                <text> { from: '@link.ParentId', to: '@link.Id', style: 'arrow' }</text>
+
+
+        if (i < (allTheNodes.Count - 1))
+           {
+               <text>,</text>
+           }
+
+    }
+
+
+    ];
+
+    // create a network
+    var container = document.getElementById('mynetwork');
+    var data = {
+        nodes: nodes,
+        edges: edges
+    };
+
+    var options = {
+
+        hierarchicalLayout: {
+            enabled: false,
+            direction: "LR"
+        },
+
+
+    };
+
+
+    var network = new vis.Network(container, data, options);
+    network.on('click', onClick);
+    network.focusOnNode(nodes[0].id);
+
+    function onClick(properties) {
+
+        if (properties.nodes.length > 0) {
+            if (properties.nodes[0].length > 30) {
+
+                window.location = '/Forge/Details/' + properties.nodes;
+            }
+        }
+    }
+
+</script>

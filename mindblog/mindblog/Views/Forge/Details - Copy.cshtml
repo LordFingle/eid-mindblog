@@ -1,0 +1,101 @@
+﻿@model mindblog.Models.WikiPage
+
+@{
+    var ContainerClassName = "row";
+    if (ViewBag.Minimal == true)
+    {
+        Layout = "~/Views/Shared/_LayoutModal.cshtml";
+        // ContainerClassName = "";
+        <base target="_blank">
+    }
+
+    ViewBag.Title = Model.Title;
+}
+
+<style>
+    .btn-circle {
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  padding: 22px 0;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 30px;
+}
+</style>
+ 
+<div style="padding-top:0px;" >
+
+        <div class="@ContainerClassName"> 
+            
+            <h1>@Model.Title</h1>
+            
+
+            <div id="markdown" ondrop="fireAtomDrop(event)" ondragover="allowDrop(event)" data-uploadattachment="true">
+                @Html.Raw(ViewBag.MarkdownHtml)
+            </div> 
+            <br />
+        
+            @Html.Partial("Details.RenderMap", Model)
+          
+            @Html.Partial("RenderAttachments", Model.Atom.Data)
+            <br />
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-circle active" })
+            <a class="btn btn-primary btn-circle active" data-toggle="modal" href="#" data-target="#addModal">Add</a>
+    
+            </div>
+     
+</div>
+
+<script>
+
+    function refreshMarkdown() {
+        $.get("@Url.Action("PartialDetails", new { id = @Model.Id })", null, function (data) { $('#markdown').html(data); });
+    }
+   
+
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function fireAtomDrop(ev) {
+       
+        var action = ev.dataTransfer.getData("action");
+
+        if (action == "file") {
+            ev.preventDefault();
+            var id = ev.dataTransfer.getData("id");
+            var key = ev.dataTransfer.getData("key");
+            var toId = '@Model.Atom.Id';
+
+            jQuery.post('@Url.Content("~/Forge/MoveAttachment")'
+                + '?id=' + id
+                + '&key=' + key
+                + '&toId=' + toId,
+                function () {
+                    refreshMarkdown();
+                });
+
+        }else if (action == "link") {
+            ev.preventDefault();
+            var oldParentId = ev.dataTransfer.getData("oldParentId");
+            var atomId = ev.dataTransfer.getData("atomId");
+            var newParentId = "@Model.Atom.Id";
+
+            jQuery.post('@Url.Content("~/Forge/Move")'
+                + '?id=' + atomId
+                + '&oldParentId=' + oldParentId
+                + '&newParentId=' + newParentId,
+                function () {
+                    refreshMarkdown();
+                });
+        }
+    }
+
+
+</script>
+
+
+@Html.Partial("AddButtonSupport", Model)
+
+

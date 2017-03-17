@@ -1,0 +1,12 @@
+﻿@model IEnumerable<mindblog.Models.WikiPage>
+ 
+@foreach (var atom in Model)
+{
+    if (!String.IsNullOrEmpty(atom.Title))
+    {
+        <a href="@Url.Action("Details", new {id = atom.Id })"><span class="label label-default">@atom.Title</span></a>
+
+    }
+}
+
+ 

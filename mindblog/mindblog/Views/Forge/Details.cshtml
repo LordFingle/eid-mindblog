@@ -1,0 +1,227 @@
+﻿@model mindblog.Models.WikiPage
+
+@{
+    var ContainerClassName = "row";
+    if (ViewBag.Minimal == true)
+    {
+        Layout = "~/Views/Shared/_LayoutModal.cshtml";
+        // ContainerClassName = "";
+        <base target="_blank">
+    }
+
+    ViewBag.Title = Model.Title;
+    ViewBag.Id = Model.Id;
+}
+
+<style>
+    .btn-circle {
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  padding: 22px 0;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 20px;
+}
+
+
+/* Workaround for shitty bootstrap default*/
+.row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+</style>
+ 
+<div style="padding-top:0px;" >
+
+        <div class="@ContainerClassName"> 
+           
+            <div class="row" id="golinks">
+
+                <div class="col-xs-3 col-sm-3 col-md-2" style="margin-bottom:5px;">
+                    <a href="javascript:window.history.back();">
+       
+                        <div class="thumbnail">
+
+                            <div class="caption text-center">
+                                    <img src="@Url.Content("~/Content/images/back.png")" />
+                                     
+                                <br /><br />
+                                Back
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-xs-3 col-sm-3 col-md-2" style="margin-bottom:5px;">
+                    <a href="/Forge/Index">
+                        <div class="thumbnail">
+                         
+                            <div class="caption text-center">
+                                <img src="@Url.Content("~/Content/images/home.png")" />
+                                   
+                                <br /><br />
+                                Home
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+
+                @Html.Partial("RenderLinks", Model.GetParents())
+                <br />
+
+            </div> 
+       
+            <h1>@Model.Title</h1>
+
+           
+
+            <script>
+                $("#golinks").hide();
+                $("[data-action=showgo]").click(function () {
+                    $("#golinks").slideDown();
+                });
+
+            </script>
+             
+            <div id="markdown">
+                @Html.Raw(ViewBag.MarkdownHtml)
+            </div> 
+            <div class="@ContainerClassName">
+                @Html.Partial("RenderLinks", Model.GetChildren())
+
+            </div>
+            <div class="@ContainerClassName">
+
+                @if (Model.HasThumbnail())
+                {
+                    <img class="pull-left img-responsive" src="/Forge/GetImage?id=@Model.Id" />
+                }
+            </div>
+     
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("[data-trash=true]").on("drop", null, function (event) {
+
+            var ev = event.originalEvent;
+
+            var action = ev.dataTransfer.getData("action");
+             
+            if (action == "link") {
+               
+                var oldParentId = ev.dataTransfer.getData("oldParentId");
+                var atomId = ev.dataTransfer.getData("atomId");
+             
+                jQuery.post('@Url.Content("~/Forge/MoveToTrash")'
+                    + '?id=' + atomId
+                    + '&oldParentId=' + oldParentId,
+                    function () {
+                        location.reload();
+                    });
+            }
+
+
+
+        });
+
+        $("[data-trash=true]").on("dragover", null, function (ev) {
+          
+            ev.preventDefault();
+        });
+
+        $("[data-inventory=true]").on("dragover", null, function (ev) {
+
+            ev.preventDefault();
+        });
+
+        $("[data-inventory=true]").on("drop", null, function (event) {
+
+            var ev = event.originalEvent;
+
+            var action = ev.dataTransfer.getData("action");
+
+            if (action == "link") {
+
+                var oldParentId = ev.dataTransfer.getData("oldParentId");
+                var atomId = ev.dataTransfer.getData("atomId");
+
+                jQuery.post('@Url.Content("~/Forge/MoveToInventory")'
+                    + '?id=' + atomId
+                    + '&oldParentId=' + oldParentId,
+                    function () {
+                        location.reload();
+                    });
+            }
+
+
+
+        });
+         
+    });
+
+
+    function refreshMarkdown() {
+        
+        $.get("@Url.Action("PartialDetails", new { id = @Model.Id })", null, function (data) { $('#markdown').html(data); });
+    }
+   
+
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+
+    function dragLink(ev) {
+        ev.dataTransfer.setData("action", 'link');
+        ev.dataTransfer.setData("atomId", $(ev.currentTarget).attr('data-atomId'));
+        ev.dataTransfer.setData("oldParentId", $(ev.currentTarget).attr('data-oldParentId'));
+       // setTimeout(function () { refreshMarkdown(); }, 5000)
+    }
+
+    function fireAtomDrop(ev) {
+       
+        var action = ev.dataTransfer.getData("action");
+
+        if (action == "file") {
+            ev.preventDefault();
+            var id = ev.dataTransfer.getData("id");
+            var key = ev.dataTransfer.getData("key");
+            var toId = '@Model.Atom.Id';
+
+            jQuery.post('@Url.Content("~/Forge/MoveAttachment")'
+                + '?id=' + id
+                + '&key=' + key
+                + '&toId=' + toId,
+                function () {
+                    refreshMarkdown();
+                });
+
+        }else if (action == "link") {
+            ev.preventDefault();
+            var oldParentId = ev.dataTransfer.getData("oldParentId");
+            var atomId = ev.dataTransfer.getData("atomId");
+            var newParentId = "@Model.Atom.Id";
+
+            jQuery.post('@Url.Content("~/Forge/Move")'
+                + '?id=' + atomId
+                + '&oldParentId=' + oldParentId
+                + '&newParentId=' + newParentId,
+                function () {
+                    refreshMarkdown();
+                });
+        }
+    }
+
+
+</script>
+
+
+
+
+

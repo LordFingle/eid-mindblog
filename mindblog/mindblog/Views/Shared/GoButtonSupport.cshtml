@@ -1,0 +1,63 @@
+﻿ 
+<div class="modal fade" id="goModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">&nbsp;</h4>
+            </div>
+            <div class="modal-body">
+ 
+                <div class="btn-group btn-group-justified" role="group">
+
+                    @if (!String.IsNullOrEmpty(ViewBag.Id))
+                    {
+                    }
+                    <a class="btn" role="button" href="@Url.Action("Index")">
+                        <div class="thumbnail">
+                            <span class="glyphicon glyphicon-file caption text-center" style="font-size: xx-large;" aria-hidden="true"></span>
+                            <div class="caption text-center">
+                                <span class="text-center">Home</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="btn" role="button" href="@Url.Action("Index", "Manage")">
+                        <div class="thumbnail">
+                            <span class="glyphicon glyphicon-file caption text-center" style="font-size: xx-large;" aria-hidden="true"></span>
+                            <div class="caption text-center">
+                                <span class="text-center">Settings</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+  
+                    }
+
+                    <a class="btn" role="button" href="javascript:document.getElementById('logoutForm').submit()">
+                        <div class="thumbnail">
+                            <span class="glyphicon glyphicon-file caption text-center" style="font-size: xx-large;" aria-hidden="true"></span>
+                            <div class="caption text-center">
+                                <span class="text-center">Log Off</span>
+                            </div>
+                        </div>
+                    </a>
+
+
+
+
+                </div>
+ 
+            </div>
+           
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+ 
+
+ 
+ 

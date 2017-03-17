@@ -1,0 +1,89 @@
+﻿@model IEnumerable<eiddata.Datum>
+
+<!-- Important Owl stylesheet -->
+<link rel="stylesheet" href="@Url.Content("~/Scripts/owl-carousel/owl.carousel.css")">
+
+<!-- Default Theme -->
+<link rel="stylesheet" href="@Url.Content("~/Scripts/owl-carousel/owl.theme.css")">
+
+
+<!-- Include js plugin -->
+<script src="@Url.Content("~/Scripts/owl-carousel/owl.carousel.js")"></script>
+
+@if (this.ViewBag.Minimal == true)
+          {
+            <style>
+                .img-mythumbnail {
+                     display: block;
+  width: 100%;
+  height: auto;
+                }
+            </style>
+          }
+else
+{
+        <style>
+            .img-mythumbnail {
+                 display: block;
+  width: 100%;
+  height: auto;
+            }
+        </style>
+}
+   
+ 
+
+<div id="attachment-carousel" class="owl-carousel">
+
+    @foreach (var attachment in Model)
+    {
+        if (!String.IsNullOrEmpty(attachment.Name))
+        {
+             
+            @*<div @if (this.ViewBag.Minimal == true) {         <text> class="col-xs-2 col-sm-1 col-md-1" </text>    } else { <text> class="col-xs-3 col-sm-3 col-md-2" </text>   } style="margin-bottom:10px;">*@
+                <div draggable="true" ondragstart="dragFile(event)" data-id="@attachment.Id" data-key="@attachment.Key" data-isattachment="true">
+                    <a href="/Forge/DownloadAttachment?id=@attachment.Id&key=@attachment.Key">
+                        <img src="/Forge/GetAttachmentThumbnail?id=@attachment.Id&key=@attachment.Key"
+                             class="img-thumbnail img-mythumbnail" alt="@attachment.Name" data-id="@attachment.Id" data-key="@attachment.Key">
+                    </a>
+
+             @*</div>*@
+
+            </div>
+        }
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#attachment-carousel").owlCarousel();
+
+    });
+    context.init({
+        fadeSpeed: 100,
+        filter: function ($obj) { },
+        above: 'auto',
+        preventDoubleContext: true,
+        compress: false
+    });
+    context.attach('[data-isattachment=true]', [
+        {
+            text: 'Delete',
+            action: function (e) {
+                e.preventDefault();
+                alert(e.nodeName);
+            }
+        }
+    ]);
+
+    function dragFile(ev) {
+
+        ev.dataTransfer.setData('action', 'file');
+        ev.dataTransfer.setData("id", $(ev.target).attr('data-id'));
+        ev.dataTransfer.setData("key", $(ev.target).attr('data-key'));
+        setTimeout(function () { refreshMarkdown(); }, 5000)
+         
+    }
+
+</script>

@@ -1,0 +1,109 @@
+﻿@model mindblog.Models.WikiPage
+<script src="@Url.Content("~/Scripts/vis/vis.min.js")" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/vis/vis.min.css")" /> 
+ 
+<style type="text/css">
+    #mynetwork {
+        height: 90vh;
+
+    }
+</style>
+<div id="mynetwork"></div>
+
+
+
+<script type="text/javascript">
+
+
+    // create an array with nodes
+    @{
+        var allTheLinks = new List<mindblog.Models.WikiPage>();
+        allTheLinks.Add(Model);
+        allTheLinks.AddRange(Model.GetChildren());
+
+        var rnd = new Random();
+    }
+    var nodes = [
+
+   @for(var i=0;i < allTheLinks.Count;i++)
+    {
+       var link = allTheLinks[i];
+
+       <text> { id: '@link.Id', label: '@link.Title'</text>
+       if (i == 0)
+       {
+             <text>, level:0 </text>
+       }
+       else
+       {
+           int RandomLevel = rnd.Next(1, 9);
+
+            <text>, level:@RandomLevel </text>
+       }
+       <text> }</text>
+
+       if(i < (allTheLinks.Count-1))
+       {
+           <text>, </text>
+       }
+    }
+
+
+    ];
+
+    // create an array with edges
+    var edges = [
+ @for(var i=0;i < allTheLinks.Count;i++)
+    {
+       var link = allTheLinks[i];
+       if(link.Id != Model.Id)
+       {
+           if (link.ParentAtomId != "")
+           {
+                <text> { from: '@link.ParentAtomId', to: '@link.Id', style: 'arrow' }</text>
+           }
+
+
+           if(i < (allTheLinks.Count-1))
+           {
+               <text>,</text>
+           }
+       }
+    }
+
+
+    ];
+
+    // create a network
+    var container = document.getElementById('mynetwork');
+    var data = {
+        nodes: nodes,
+        edges: edges
+    };
+
+    var options = {
+
+        hierarchicalLayout: {
+            enabled: false,
+            direction: "LR"
+        },
+      
+
+    };
+
+
+    var network = new vis.Network(container, data, options);
+    network.on('click', onClick);
+    network.focusOnNode(nodes[0].id);
+
+    function onClick(properties) {
+
+        if (properties.nodes.length > 0) {
+            if (properties.nodes[0].length > 30) {
+
+                window.location = '/Forge/Details/' + properties.nodes;
+            }
+        }
+    }
+
+</script>

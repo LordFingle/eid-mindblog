@@ -1,0 +1,12 @@
+﻿<Properties StartupItem="mindblog/mindblog.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="mindblog/Controllers/ForgeController.cs">
+    <Files>
+      <File FileName="mindblog/Controllers/ForgeController.cs" Line="18" Column="18" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

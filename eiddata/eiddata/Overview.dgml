@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="(@1 Namespace=eiddata Type=Atom)" Category="CodeSchema_Class" Bounds="-9729.35012044271,-10022.5,70.1733333333323,26" CodeSchemaProperty_IsPublic="True" CommonLabel="Atom" Icon="Microsoft.VisualStudio.Class.Public" Label="Atom" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///D:/Dropbox/eid/develop/eiddata/eiddata/Atom.cs StartLineNumber=11 StartCharacterOffset=4 EndLineNumber=11 EndCharacterOffset=4)" UseManualLocation="True" />
+    <Node Id="(@1 Namespace=eiddata Type=Datum)" Category="CodeSchema_Class" Bounds="-9562.41357421875,-9920,76.7133333333331,26" CodeSchemaProperty_IsPublic="True" CommonLabel="Datum" Icon="Microsoft.VisualStudio.Class.Public" Label="Datum" Language="{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}" SourceLocation="(Assembly=file:///D:/Dropbox/eid/develop/eiddata/eiddata/Atom.cs StartLineNumber=88 StartCharacterOffset=4 EndLineNumber=88 EndCharacterOffset=4)" UseManualLocation="True" />
+  </Nodes>
+  <Links>
+    <Link Source="(@1 Namespace=eiddata Type=Atom)" Target="(@1 Namespace=eiddata Type=Datum)" Bounds="-9672.67692692454,-9996.5,119.322648253246,71.8570282093315" />
+  </Links>
+  <Categories>
+    <Category Id="CodeSchema_Class" Label="Class" BasedOn="CodeSchema_Type" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Member" Icon="CodeSchema_Class" NavigationActionLabel="Classes" />
+    <Category Id="CodeSchema_Type" Label="Type" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Member" Icon="CodeSchema_Class" NavigationActionLabel="Types" />
+  </Categories>
+  <Properties>
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CodeSchemaProperty_IsPublic" Label="Is Public" Description="Flag to indicate the scope is Public" DataType="System.Boolean" />
+    <Property Id="CommonLabel" DataType="System.String" />
+    <Property Id="DefaultAction" Label="DefaultAction" Description="DefaultAction" DataType="System.String" />
+    <Property Id="Icon" Label="Icon" Description="Icon" DataType="System.String" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="Language" Label="Language" Description="Language" DataType="System.String" />
+    <Property Id="NavigationActionLabel" Label="NavigationActionLabel" Description="NavigationActionLabel" DataType="System.String" />
+    <Property Id="SourceLocation" Label="Start Line Number" DataType="Microsoft.VisualStudio.GraphModel.CodeSchema.SourceLocation" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+  </Properties>
+  <QualifiedNames>
+    <Name Id="Assembly" Label="Assembly" ValueType="Uri" />
+    <Name Id="Namespace" Label="Namespace" ValueType="System.String" />
+    <Name Id="Type" Label="Type" ValueType="System.Object" />
+  </QualifiedNames>
+  <IdentifierAliases>
+    <Alias n="1" Uri="Assembly=$(5bedef97-64c9-4e5f-9046-b8cf9079274e.OutputPathUri)" />
+  </IdentifierAliases>
+  <Paths>
+    <Path Id="5bedef97-64c9-4e5f-9046-b8cf9079274e.OutputPathUri" Value="file:///D:/Dropbox/eid/develop/eiddata/eiddata/bin/Debug/eiddata.dll" />
+  </Paths>
+</DirectedGraph>
